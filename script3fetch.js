@@ -12,7 +12,7 @@ function apiSearch(event) {
     const server =
         "https://api.themoviedb.org/3/search/multi?api_key=1a68372fcca439831d85880c1c1936b0&language=ru&query=" +
         searchText;
-    movie.innerHTML = '<img src="Blocks-1s-200px.gif">';
+    movie.innerHTML = '<img src="./Blocks-1s-200px.gif">';
 
     fetch(server)
         .then(function (value) {
@@ -24,10 +24,11 @@ function apiSearch(event) {
 
 
         .then(function (output) {
-            let inner = "";
+            let inner = "", imageReady = '';
             output.results.forEach(function (item) {
-                if (urlPoster == null) {
-                    urlPoster = 'no_image.png';
+                imageReady = urlPoster + item.poster_path;
+                if (item.poster_path == null) {
+                    imageReady = './no_image.png';
                 }
                 let nameItem = item.name || item.title;
                 inner += `
@@ -36,7 +37,7 @@ function apiSearch(event) {
         <div class="card">
             <img class="card-img-top" src="${
                     
-                    urlPoster + item.poster_path}" alt="${nameItem}">
+                    imageReady}" alt="${nameItem}">
             <div class="card-body">
                 <h5 class="card-title">${nameItem}</h5>
                 <p class="card-text">Release: ${item.release_date}</p>
