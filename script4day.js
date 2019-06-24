@@ -26,9 +26,11 @@ document.addEventListener("DOMContentLoaded", function() {
           ? urlPoster + item.poster_path
           : "./no_image1.png";
         let nameItem = item.name || item.title;
-          let mediaType = item.title ? "movie" : "tv";
-          let nonDate = item.release_date ? item.release_date.substring(0,4) : 'Нет';
-          
+        let mediaType = item.title ? "movie" : "tv";
+        let nonDate = item.release_date
+          ? item.release_date.substring(0, 4)
+          : "Нет";
+
         let dataInfo = `data-id="${item.id}" data-type="${mediaType}"`;
         inner += `
 <div class="col-6 col-md-6 col-xl-3 item pb-4">
@@ -41,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function() {
 </div> 
 <div class="col-6 col-md-6 col-xl-3 item text_cover pb-4">
 <h5 class="card-title">${nameItem}</h5>
-<p class="card-text" ><b>Описание:</b> ${item.overview.substring(0,200)}</p>
-<p class="card-text"><b>Год выпуска:</b> ${(nonDate)}</p>
+<p class="card-text" ><b>Описание:</b> ${item.overview.substring(0, 200)}</p>
+<p class="card-text"><b>Год выпуска:</b> ${nonDate}</p>
 <p class="card-text rate">Рейтинг: ${item.vote_average}</p>
 </div>
             
             `;
       });
-        
+
       movie.innerHTML = inner;
       addEventMedia();
     })
@@ -82,8 +84,7 @@ function apiSearch(event) {
     })
 
     .then(function(output) {
-        let inner = 
-      `<h4 class="col-12 text-left text-info my-4">Результаты поиска: <small style="color:rgb(130, 12, 97); font-style: italic;">${searchText.trim()}</small></h4>`;
+      let inner = `<h4 class="col-12 text-left text-info my-4">Результаты поиска: <small style="color:rgb(130, 12, 97); font-style: italic;">${searchText.trim()}</small></h4>`;
       if (output.results.length === 0) {
         inner =
           '<h2 class="col-12 text-center text-info">По Вашему запросу ничего не найдено! </h2 > ';
@@ -92,8 +93,10 @@ function apiSearch(event) {
         const imageReady = item.poster_path
           ? urlPoster + item.poster_path
           : "./no_image1.png";
-          let nameItem = item.name || item.title;
-          let nonDate = item.release_date ? item.release_date.substring(0, 4) : 'Нет';
+        let nameItem = item.name || item.title;
+        let nonDate = item.release_date
+          ? item.release_date.substring(0, 4)
+          : "Нет";
         let dataInfo = "";
         if (item.media_type !== "person")
           dataInfo = `data-id="${item.id}" data-type="${item.media_type}"`;
@@ -109,7 +112,7 @@ function apiSearch(event) {
 <div class="col-6 col-md-6 col-xl-3 item text_cover pb-4">
 <h5 class="card-title">${nameItem}</h5>
 <p class="card-text" ><b>Описание:</b> ${item.overview.substring(0, 200)}</p>
-<p class="card-text"><b>Год выпуска:</b> ${(nonDate)}</p>
+<p class="card-text"><b>Год выпуска:</b> ${nonDate}</p>
 <p class="card-text rate">Рейтинг: ${item.vote_average}</p>
 </div>
             
@@ -159,7 +162,7 @@ function showFullInfo() {
     })
 
     .then(function(output) {
-        movie.innerHTML = `
+      movie.innerHTML = `
             <div class="col-4">
             <img src="${urlPoster + output.poster_path}" alt="${output.name ||
         output.title}">
@@ -168,10 +171,11 @@ function showFullInfo() {
             </div>
             <div class="col-8 fullInfo">
             <h4 class="col-12 text-center text-info">${output.name ||
-          output.title}</h4>
+              output.title}</h4>
             <p> <b>Рейтинг:</b> ${output.vote_average}</p>
             <p> <b>Статус:</b>${output.status}</p>
-            <p> <b>Примьера:</b> ${output.first_air_date || output.release_date}</p>
+            <p> <b>Примьера:</b> ${output.first_air_date ||
+              output.release_date}</p>
             <p> <b>Оригинальное название:</b> ${output.original_title}</p>
             <p> <b>Язые оригинала:</b> ${output.original_language}</p>
             
@@ -185,24 +189,26 @@ function showFullInfo() {
 
             <p><b>Описание:</b> ${output.overview}</p>
             ${
-            output.homepage
+              output.homepage
                 ? `<p class="text-left my-2"><a href="${
-                output.homepage
-                }" target="_blank">Официальная страница</a></p>`
+                    output.homepage
+                  }" target="_blank">Официальная страница</a></p>`
                 : ""
             }
             ${
-            output.imdb_id
+              output.imdb_id
                 ? `<p class="text-left"><a href="https://imdb.com/title/${
-                output.imdb_id
-                }" target="_blank">Страница на IMDB.com</a></p>`
+                    output.imdb_id
+                  }" target="_blank">Страница на IMDB.com</a></p>`
                 : ""
             }
             ${
-            output.imdb_id
+              output.imdb_id
                 ? `<p class="text-left"><a href="https://themoviedb.org/movie/${
-                output.id
-                }-${output.original_name}" target="_blank">Страница на The Movie Db.com</a></p>`
+                    output.id
+                  }-${
+                    output.original_name
+                  }" target="_blank">Страница на The Movie Db.com</a></p>`
                 : ""
             }
             </div>
@@ -214,4 +220,3 @@ function showFullInfo() {
       console.log("error" + reason);
     });
 }
-
