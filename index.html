@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
     <head>
         <meta charset="UTF-8">
@@ -13,28 +13,21 @@
     </head>
 
     <body>
-        <nav class="navbar">
-            <div class="container">
-                <a href="index.html" class="navbar-brand">Cinema Search</a>
-            </div>
+        <div class="navbar navbar-dark" style="background-color: rgba(0, 80, 130, 0.797); color:#ffff;">
+            <a href="index.html" class="navbar-brand">Movie-Search</a>
+            <form action="" id="search-form" class="form-inline my-2 my-lg-0">
+                <input type="search" class="form-control my-2 my-sm-0" id="searchtext" placeholder="Введите название">
+                <button class="btn btn-outline-info m-2" type="submit">Поиск</button>
+            </form>
+        </div>
         </nav>
         <div class="container">
-            <div class="jumbotron">
-                <h3 class="text-center">
-                    Поиск фильмов
-                </h3>
-                <form action="" id="search-form">
-                    <input type="text" class="form-control" id="searchtext" placeholder="Введите название">
-                </form>
-            </div>
-            <div class="container">
-                <div id="movies" class="row"></div>
+            <div id="movies" class="row my-4">
+
             </div>
         </div>
-        <script src="./script3fetch.js"></script>
+        </div>
+        <script src="./script4day.js"></script>
     </body>
 
 </html>
-
-
-
